@@ -8,7 +8,6 @@ private:
 	Init init;
 
 public:
-
 	char name[20];
 	float health;
 	float matrix[16];

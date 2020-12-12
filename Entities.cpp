@@ -4,31 +4,32 @@
 #include "Entities.h"
 #include "Init.h"
 
-// ENTITIES
-void Entities::GetEntityAmount()
-{
-	//amount = init.Read<int>(LPCVOID(players_in_map));
-}
 
 void Entities::GetInfo()
 {
-	/*
-	list.resize(amount);
-	for (int i = 1; i < amount; i++)
+	//read 1st cped address;
+	ReadProcessMemory(init.procHandle, (LPCVOID)(init.moduleBase + init.of_gangCped), &init.gangCpedEntityListBaseAddress, sizeof(init.gangCpedEntityListBaseAddress), nullptr);
+
+	//list[0].cPedAddreass = init.gangCpedEntityListBaseAddress;
+	for (int i = 0; ; i ++)
 	{
-		ReadProcessMemory(winFunc.processHandle, LPCVOID(entity_base), &list[i].base, sizeof(list[i].base), nullptr);
-		ReadProcessMemory(winFunc.processHandle, LPCVOID(list[i].base + (0x4 * i)), &list[i].base, sizeof(list[i].base), nullptr);
-		ReadProcessMemory(winFunc.processHandle, (PBYTE*)(list[i].base + of_name), &list[i].name, sizeof(list[i].name), nullptr);
-		ReadProcessMemory(winFunc.processHandle, LPCVOID(list[i].base + of_health), &list[i].health, sizeof(list[i].health), nullptr);
-		ReadProcessMemory(winFunc.processHandle, LPCVOID(list[i].base + of_posx), &list[i].position_head.x, sizeof(list[i].position_head.x), nullptr);
-		ReadProcessMemory(winFunc.processHandle, LPCVOID(list[i].base + of_posy), &list[i].position_head.y, sizeof(list[i].position_head.y), nullptr);
-		ReadProcessMemory(winFunc.processHandle, LPCVOID(list[i].base + of_posz), &list[i].position_head.z, sizeof(list[i].position_head.z), nullptr);
-		ReadProcessMemory(winFunc.processHandle, LPCVOID(list[i].base + of_team), &list[i].team, sizeof(list[i].team), nullptr);
-		ReadProcessMemory(winFunc.processHandle, LPCVOID(list[i].base + of_posx_normal), &list[i].position_feet.x, sizeof(list[i].position_feet.x), nullptr);
-		ReadProcessMemory(winFunc.processHandle, LPCVOID(list[i].base + of_posy_normal), &list[i].position_feet.y, sizeof(list[i].position_feet.y), nullptr);
-		ReadProcessMemory(winFunc.processHandle, LPCVOID(list[i].base + of_posz_normal), &list[i].position_feet.z, sizeof(list[i].position_feet.z), nullptr);
+		Entity ent;
+		if (!i) {
+			ent.cPedAddreass = init.gangCpedEntityListBaseAddress;
+		}
+		else {
+			QWORD possibleCpedAddress = init.gangCpedEntityListBaseAddress + 0x28; // 5 * 0x8, next cped 
+			if (!possibleCpedAddress) {
+				amount = i;
+				break;  // if not cPed
+			}
+			ent.cPedAddreass = possibleCpedAddress;
+		}
+		ReadProcessMemory(init.procHandle, LPCVOID(ent.cPedAddreass + init.of_health), &ent.cPedHealth, sizeof(ent.cPedHealth), nullptr);
+		ReadProcessMemory(init.procHandle, LPCVOID(ent.cPedAddreass + init.of_coordX), &ent.cPedCoords.x, sizeof(ent.cPedCoords.x), nullptr);
+		ReadProcessMemory(init.procHandle, LPCVOID(ent.cPedAddreass + init.of_coordY), &ent.cPedCoords.y, sizeof(ent.cPedCoords.y), nullptr);
+		ReadProcessMemory(init.procHandle, LPCVOID(ent.cPedAddreass + init.of_coordZ), &ent.cPedCoords.z, sizeof(ent.cPedCoords.z), nullptr);
 	}
-	*/
 }
 
 void Entities::Print()
@@ -37,10 +38,12 @@ void Entities::Print()
 	std::cout << "========= Entities ==========" << "\n";
 	std::cout << "=============================" << "\n\n";
 
+	std::cout << std::hex << init.gangCpedEntityListBaseAddress << std::endl;
+	/*
 	for (int i = 1; i < amount; i++)
 	{
 		list[i].Print();
 	}
-
+	*/
 	std::cout << "\n\n";
 }

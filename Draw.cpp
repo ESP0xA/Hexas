@@ -1,7 +1,6 @@
 #include "Draw.h"
 #include <sstream>
 #include <iostream>
-
 #pragma warning(disable : 4996) // disable strcopy (overflow)
 #pragma warning(disable : 4244) // disable loss of data conversion
 
@@ -80,15 +79,16 @@ DWORD WINAPI Draw::esp(Entities entities, Player player, Mathematics math)
 	{
 		player.GetInfo();
 		entities.GetInfo();
-
 		for (int i = 0; i < entities.amount; i++)
 		{
-			if (math.WorldToScreen(entities.list[i].position_feet, math.screen, player.matrix, 1920, 1080) && entities.list[i].health > 0)
+			if (math.WorldToScreen(entities.list[i].cPedCoords, math.screen, player.matrix, 1920, 1080) && entities.list[i].cPedHealth > 0)
 			{
+				/*
 				if (entities.list[i].team != player.team)
 				{
 					//Draw::DrawESP(math.screen.x, math.screen.y, math.GetDistance3D(player.position_feet, entities.list[i].position_feet), entities.list[i].health, entities.list[i].name, Draw::hBrushEnemy, Draw::enemyColor);
 				}
+				*/
 			}
 		}
 	}

@@ -5,12 +5,11 @@ class Entity {
 
 public:
 
-	char name[20];
-	int base;
-	int health;
-	vec3d_f position_head;
-	vec3d_f position_feet;
-	int team;
-
+	//char name[20];
+	int cPedAddreass = 0x0;
+	float cPedHealth = 0;
+	vec3d_f cPedCoords = {};
+	//int team;
+	Entity() {};
 	void Print();
 };

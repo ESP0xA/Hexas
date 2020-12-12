@@ -1,25 +1,28 @@
 #include <iostream>
 #include "Init.h"
 #include "Player.h"
+#include "Entities.h"
 
 Init init;
 int main()
 {
+	// initialize
 	init.GetPID();
 	init.GetProcHandle();
 	init.GenerateBaseAddress();
 	init.Print();
 
+	// get player info
 	Player player(init);
 	player.GetInfo();
 	player.Print();
-	/*
 
+	// get entities info
 	Entities entities(init);
 	entities.GetInfo();
 	entities.Print();
 
-
+	/*
 	Mathematics math(win);
 
 	Draw draw(win);
