@@ -5,8 +5,14 @@
 
 void Player::GetInfo()
 {
+	std::cout << init.procHandle << "\n";
+	std::cout << init.playerBaseAddress << "\n";
+	std::cout << init.playerBaseAddress + init.of_health << "\n";
+
+	ReadProcessMemory(init.procHandle, (LPCVOID)(init.playerBaseAddress + init.of_health), &health, sizeof(health), nullptr);
+	//std::cout << *(QWORD*)(init.playerBaseAddress + init.of_health) << "\n";
+
 	/*
-	ReadProcessMemory(winFunc.processHandle, (LPCVOID)(player_base), &base, sizeof(base), nullptr);
 	ReadProcessMemory(winFunc.processHandle, (LPCVOID)(base + of_health), &health, sizeof(health), nullptr);
 	ReadProcessMemory(winFunc.processHandle, (PBYTE*)(base + of_name), &name, sizeof(name), nullptr);
 	ReadProcessMemory(winFunc.processHandle, (LPCVOID)(base + of_posx), &position_head.x, sizeof(position_head.x), nullptr);
@@ -26,11 +32,8 @@ void Player::Print()
 	std::cout << "========== Player ===========" << "\n";
 	std::cout << "=============================" << "\n\n";
 
-	std::cout << "Name (me): " << health << "\n";
 	std::cout << "Health: " << health << "\n";
-	std::cout << "Position (head): (" << position_head.x << ", " << position_head.y << ", " << position_head.z << ")\n";
-	std::cout << "Position (feet): (" << position_feet.x << ", " << position_feet.y << ", " << position_feet.z << ")\n";
-	std::cout << "Team: " << team << "\n";
+	//std::cout << "Position (head): (" << position_head.x << ", " << position_head.y << ", " << position_head.z << ")\n";
 
 	std::cout << "\n\n";
 }

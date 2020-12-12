@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Init.h"
+#include "Player.h"
 
 Init init;
 int main()

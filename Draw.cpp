@@ -87,7 +87,7 @@ DWORD WINAPI Draw::esp(Entities entities, Player player, Mathematics math)
 			{
 				if (entities.list[i].team != player.team)
 				{
-					Draw::DrawESP(math.screen.x, math.screen.y, math.GetDistance3D(player.position_feet, entities.list[i].position_feet), entities.list[i].health, entities.list[i].name, Draw::hBrushEnemy, Draw::enemyColor);
+					//Draw::DrawESP(math.screen.x, math.screen.y, math.GetDistance3D(player.position_feet, entities.list[i].position_feet), entities.list[i].health, entities.list[i].name, Draw::hBrushEnemy, Draw::enemyColor);
 				}
 			}
 		}

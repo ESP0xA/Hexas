@@ -33,7 +33,6 @@ void Init::GenerateBaseAddress()
 	ReadProcessMemory(procHandle, (LPCVOID)(moduleBase + of_playerBaseAddress), &playerBaseAddress, sizeof(playerBaseAddress), nullptr);
 	ReadProcessMemory(procHandle, (LPCVOID)(playerBaseAddress + 0x30), &pInstGtaBaseAddress, sizeof(pInstGtaBaseAddress), nullptr);
 	ReadProcessMemory(procHandle, (LPCVOID)(moduleBase + of_gangCped), &gangCpedEntityListBaseAddress, sizeof(playerBaseAddress), nullptr);
-
 }
 
 void Init::Print()

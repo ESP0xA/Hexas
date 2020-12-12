@@ -10,12 +10,10 @@ private:
 public:
 
 	char name[20];
-	int base;
-	int health;
+	float health;
 	float matrix[16];
 	vec2d_f screen;
-	vec3d_f position_head;
-	vec3d_f position_feet;
+	vec3d_f coords;
 	int team;
 
 	Player(Init this_init)
