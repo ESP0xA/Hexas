@@ -6,15 +6,14 @@ int main()
 {
 	init.GetPID();
 	init.GetProcHandle();
-	//init.GetModuleInfo();
 	init.GenerateBaseAddress();
 	init.Print();
 
-	/*
 	Player player(init);
 	player.GetInfo();
 	player.Print();
 
+	/*
 
 	Entities entities(init);
 	entities.GetInfo();

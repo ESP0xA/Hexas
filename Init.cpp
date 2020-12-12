@@ -12,7 +12,7 @@ void Init::GetProcHandle() {
 	procHandle = OpenProcess(PROCESS_VM_READ | PROCESS_VM_WRITE, false, PID);
 }
 
-
+// useless
 void Init::GetModuleInfo()
 {
 	//moduleBase = (QWORD)GetModuleBaseAddress(PID, L"GTA5.exe");
@@ -42,10 +42,10 @@ void Init::Print()
 	std::cout << "=========== HEXAS ===========" << std::endl;
 	std::cout << "=============================" << std::endl;
 
-	std::cout << "PID:									" << PID << std::endl;;
-	std::cout << "Handle:								" << procHandle << std::endl;
-	std::cout << "ModuleBase:							" << std::hex << moduleBase << std::endl;
-	std::cout << "playerBaseAddress:					" << std::hex << playerBaseAddress << std::endl;
-	std::cout << "pInstGtaBaseAddress:					" << std::hex << pInstGtaBaseAddress << std::endl;
+	std::cout << "PID: " << PID << std::endl;;
+	std::cout << "Handle: " << procHandle << std::endl;
+	std::cout << "ModuleBase: " << std::hex << moduleBase << std::endl;
+	std::cout << "playerBaseAddress: " << std::hex << playerBaseAddress << std::endl;
+	std::cout << "pInstGtaBaseAddress: " << std::hex << pInstGtaBaseAddress << std::endl;
 	std::cout << "gangCpedEntityListBaseAddress: " << std::hex << gangCpedEntityListBaseAddress << std::endl;
 }
