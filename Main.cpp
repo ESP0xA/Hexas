@@ -13,7 +13,6 @@ int main()
 	Player player(init);
 	player.GetInfo();
 	player.Print();
-
 	/*
 
 	Entities entities(init);
