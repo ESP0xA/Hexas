@@ -19,7 +19,7 @@ public:
 		//GetEntityAmount(); // Need to init with knowing how many entities there are.
 	}
 	
-	void GetInfo();
+	void GetListInfo();
 	void LoopList();
 	void Print();
 };
