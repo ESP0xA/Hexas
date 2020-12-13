@@ -13,7 +13,7 @@ public:
 	// About game system
 	DWORD PID = 0;
 	HANDLE procHandle = 0;
-	QWORD moduleBase = 0x7FF601D90000;	// "GTA5.exe"
+	QWORD moduleBase = 0x7FF666DE0000;	// "GTA5.exe"
 	QWORD moduleSize = 0;
 
 	// BaseAddress

@@ -16,11 +16,21 @@ int main()
 	Player player(init);
 	player.GetInfo();
 	player.Print();
-
+	
 	// get entities info
 	Entities entities(init);
-	entities.GetInfo();
-	entities.Print();
+	for (;;) {
+		entities.GetInfo();
+		entities.LoopList();
+		Sleep(1000);
+	}
+	
+	/*
+	for (;;) {
+		
+		Sleep(1000);
+	}
+	//entities.Print();
 
 	/*
 	Mathematics math(win);

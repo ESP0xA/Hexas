@@ -10,8 +10,9 @@ private:
 	Init init;
 
 public:
-	int amount = 0;
+	std::vector<QWORD> addrList = {};
 	std::vector<Entity> list = {};
+	int amount = 0;
 	Entities(Init this_init)
 	{
 		init = this_init;
@@ -19,5 +20,6 @@ public:
 	}
 	
 	void GetInfo();
+	void LoopList();
 	void Print();
 };
