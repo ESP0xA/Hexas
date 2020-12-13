@@ -19,11 +19,13 @@ int main()
 	
 	// get entities info
 	Entities entities(init);
-	for (;;) {
+	while (1) {
 		entities.GetInfo();
 		entities.LoopList();
-		Sleep(1000);
+		Sleep(200);
 	}
+	
+	
 	
 	/*
 	for (;;) {

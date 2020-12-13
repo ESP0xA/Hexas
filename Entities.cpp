@@ -8,19 +8,24 @@
 void Entities::GetInfo()
 {
 	//read 1st cped address;
+	list = {}; // init list
 	QWORD cPedAddr = 0x000000000000;
 	QWORD of_cPed = init.of_gangCped;
 	for (int i = 0; i < 30; i++, of_cPed += 0x28) {
 		Entity ent;
+		float h = 0;
 		ReadProcessMemory(init.procHandle, (LPCVOID)(init.moduleBase + of_cPed), &cPedAddr, sizeof(cPedAddr), nullptr);
 		if (cPedAddr) { // address not 0
-			ReadProcessMemory(init.procHandle, LPCVOID(cPedAddr + init.of_health), &ent.cPedHealth, sizeof(ent.cPedHealth), nullptr);
-			if (!ent.cPedHealth) // health is 0
-				continue;
-			else // good cped
-				addrList.push_back(cPedAddr);
+			ReadProcessMemory(init.procHandle, LPCVOID(cPedAddr + init.of_health), &h, sizeof(h), nullptr);
+			if (!h) {
+				continue;// health is 0
+			}
+			else {	 // good cped
+				ent.cPedAddreass = cPedAddr;
+				ent.cPedHealth = h;
+				list.push_back(ent);
+			}
 		}
-		// judge if health > 0
 		/*
 		if (!ent.cPedHealth) {
 			nextCPedAddr += 0x28;
@@ -36,7 +41,7 @@ void Entities::GetInfo()
 		*/
 	}
 	//amount = list.size();
-	amount = addrList.size();
+	amount = list.size();
 }
 
 void Entities::LoopList() {
@@ -47,8 +52,9 @@ void Entities::LoopList() {
 		std::cout << "cPed Coords: {" << list[i].cPedCoords.x << ", " << list[i].cPedCoords.y << ", " << list[i].cPedCoords.z << "}" << std::endl;
 	}
 	*/
+	
 	for (int i = 0; i < amount; i++) {
-		std::cout << "cPed Address: " << std::hex << addrList[i] << "\n";
+		std::cout << i << "] cPed Health: " << list[i].cPedHealth<< "\n";
 	}
 	std::cout << "\n\n";
 }
