@@ -22,7 +22,8 @@ int main()
 	// get entities info
 	Entities entities(init);
 	entities.GetListInfo();
-	entities.LoopList();
+	//entities.LoopList();
+	
 
 	Mathematics math(init);
 	Draw draw(init);

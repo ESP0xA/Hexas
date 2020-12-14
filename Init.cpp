@@ -37,9 +37,9 @@ void Init::GenerateBaseAddress()
 
 void Init::Print()
 {
-	std::cout << "=============================" << std::endl;
-	std::cout << "=========== HEXAS ===========" << std::endl;
-	std::cout << "=============================" << std::endl;
+	std::cout << "=======================================" << std::endl;
+	std::cout << "================= HEXAS ===============" << std::endl;
+	std::cout << "=======================================" << std::endl;
 
 	std::cout << "PID: " << PID << std::endl;;
 	std::cout << "Handle: " << procHandle << std::endl;

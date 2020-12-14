@@ -41,7 +41,7 @@ void Entities::GetListInfo()
 
 void Entities::LoopList() {
 	for (int i = 0; i < amount; i ++) {
-		std::cout << i << "cPed Health: " << list[i].cPedHealth << "| Coords: {" << list[i].cPedCoords.x << ", " << list[i].cPedCoords.y << ", " << list[i].cPedCoords.z << "}" << std::endl;
+		std::cout << i << "cPed Health: " << list[i].cPedHealth << "| Coords: {" << list[i].cPedCoords.x << ", " << list[i].cPedCoords.y << ", " << list[i].cPedCoords.z << "}" << "\r";
 	}
 	std::cout << "\n\n";
 }

@@ -17,10 +17,10 @@ public:
 		init = this_init;
 	}
 
-	HBRUSH hBrushEnemy = CreateSolidBrush(RGB(255, 0, 0));
+	HBRUSH hBrushEnemy = CreateSolidBrush(RGB(255, 255, 0));
 	HBRUSH hBrushTeam = CreateSolidBrush(RGB(0, 0, 255));
 	HBRUSH hBrushNeutral = CreateSolidBrush(RGB(255, 255, 255));
-	COLORREF enemyColor = RGB(255, 0, 0);
+	COLORREF enemyColor = RGB(255, 255, 0);
 	COLORREF teamColor = RGB(0, 0, 255);
 	COLORREF neutralColor = RGB(255, 255, 255);
 
@@ -39,6 +39,8 @@ public:
 	void DrawBorderBox(int x, int y, int w, int h, int thickness, HBRUSH brushColor);
 
 	void DrawString(int x, int y, COLORREF color, const char* text);
+	
+	void DrawLine(int startX, int startY, int endX, int endY, COLORREF Pen);
 
 	void DrawESP(int x, int y, float distance, int health, const char* name, HBRUSH hBrush, COLORREF Pen);
 

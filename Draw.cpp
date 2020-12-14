@@ -8,7 +8,7 @@ void Draw::SetupDrawing(HDC hDesktop, HWND handle)
 {
 	Draw::HDC_Desktop = hDesktop;
 	Draw::Handle = handle;
-	TextCOLOR = RGB(0, 255, 0);
+	TextCOLOR = RGB(255, 0, 0);
 }
 
 void Draw::DrawFilledRect(int x, int y, int w, int h, HBRUSH brushColor)
@@ -36,13 +36,27 @@ void Draw::DrawString(int x, int y, COLORREF color, const char* text)
 	DeleteObject(Font);
 }
 
+void Draw::DrawLine(int startX, int startY, int endX, int endY, COLORREF Pen)
+{
+	int a, b = 0;
+	HPEN hOPen;
+	// penstyle, width, color
+	HPEN hNPen = CreatePen(PS_SOLID, 2, Pen);
+	hOPen = (HPEN)SelectObject(HDC_Desktop, hNPen);
+	// starting point of line
+	MoveToEx(HDC_Desktop, startX, startY, NULL);
+	// ending point of line
+	a = LineTo(HDC_Desktop, endX, endY);
+	DeleteObject(SelectObject(HDC_Desktop, hOPen));
+}
+
 void Draw::DrawESP(int x, int y, float distance, int health, const char* name, HBRUSH hBrush, COLORREF Pen)
 {
-	int width = 1100 / distance;	//18100
+	int width = 400 / distance;	//18100, 1100
 
-	int height = 2000 / distance;	//36000
+	int height = 1000 / distance;	//36000, 2000
 
-	DrawBorderBox(x - (width / 2), y - height, width, height, 1, hBrush);
+	DrawBorderBox(x - (width / 2), y - height, width, height, 3, hBrush);
 
 	std::stringstream ss;
 	ss << std::to_string((int)distance) + " meters"; 
@@ -81,9 +95,10 @@ DWORD WINAPI Draw::esp(Entities entities, Player player, Mathematics math)
 		entities.GetListInfo();
 		for (int i = 0; i < entities.amount; i++)
 		{
-			if (math.WorldToScreen(entities.list[i].cPedCoords, math.screen, player.matrix, 1920, 1080) && entities.list[i].cPedHealth > 0)
+			if (math.WorldToScreen(entities.list[i].cPedCoords, math.screen, player.matrix, 2560, 1440) && entities.list[i].cPedHealth > 0)
 			{
 				Draw::DrawESP(math.screen.x, math.screen.y, math.GetDistance3D(player.coords, entities.list[i].cPedCoords), entities.list[i].cPedHealth, "CPed", Draw::hBrushEnemy, Draw::enemyColor);
+				Draw::DrawLine(2560 / 2, 1440, math.screen.x, math.screen.y, Draw::enemyColor);
 			}
 		}
 	}
