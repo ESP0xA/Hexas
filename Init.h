@@ -13,7 +13,7 @@ public:
 	// About game system
 	DWORD PID = 0;
 	HANDLE procHandle = 0;
-	QWORD moduleBase = 0x7FF666DE0000;	// "GTA5.exe"
+	QWORD moduleBase = 0x7FF60A8F0000;	// "GTA5.exe"
 	QWORD moduleSize = 0;
 
 	// BaseAddress
@@ -35,7 +35,8 @@ public:
 	QWORD of_ang_left_right = { 0x40 };					// ?
 	QWORD of_ang_up_down = { 0x44 };					// ?
 	QWORD of_team = 0x32C;								// ?
-	QWORD of_viewmatrix = 0x501AE8;						// ?
+	//QWORD of_viewmatrix = 0x501AE8;						// ?
+	QWORD of_viewmatrix = 0x7FF60C85E250;
 	QWORD of_posx_normal = 0x34;						// ?
 	QWORD of_posy_normal = 0x38;						// ?
 	QWORD of_posz_normal = 0x3C;						// ?

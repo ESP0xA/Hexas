@@ -36,7 +36,7 @@ void Draw::DrawString(int x, int y, COLORREF color, const char* text)
 	DeleteObject(Font);
 }
 
-void Draw::DrawESP(int x, int y, float distance, int health, char name[20], HBRUSH hBrush, COLORREF Pen)
+void Draw::DrawESP(int x, int y, float distance, int health, const char* name, HBRUSH hBrush, COLORREF Pen)
 {
 	int width = 1100 / distance;	//18100
 
@@ -45,7 +45,7 @@ void Draw::DrawESP(int x, int y, float distance, int health, char name[20], HBRU
 	DrawBorderBox(x - (width / 2), y - height, width, height, 1, hBrush);
 
 	std::stringstream ss;
-	ss << std::to_string((int)distance) + " meters";
+	ss << std::to_string((int)distance) + " meters"; 
 
 	std::stringstream dd;
 	dd << std::to_string(health) + " HP";
@@ -73,22 +73,17 @@ void Draw::DrawESP(int x, int y, float distance, int health, char name[20], HBRU
 
 DWORD WINAPI Draw::esp(Entities entities, Player player, Mathematics math)
 {
-	GetWindowRect(FindWindow(NULL, "AssaultCube"), &m_Rect);
+	GetWindowRect(FindWindow(NULL, init.winName), &m_Rect);
 
 	while (true)
 	{
 		player.GetInfo();
-		entities.GetInfo();
+		entities.GetListInfo();
 		for (int i = 0; i < entities.amount; i++)
 		{
 			if (math.WorldToScreen(entities.list[i].cPedCoords, math.screen, player.matrix, 1920, 1080) && entities.list[i].cPedHealth > 0)
 			{
-				/*
-				if (entities.list[i].team != player.team)
-				{
-					//Draw::DrawESP(math.screen.x, math.screen.y, math.GetDistance3D(player.position_feet, entities.list[i].position_feet), entities.list[i].health, entities.list[i].name, Draw::hBrushEnemy, Draw::enemyColor);
-				}
-				*/
+				Draw::DrawESP(math.screen.x, math.screen.y, math.GetDistance3D(player.coords, entities.list[i].cPedCoords), entities.list[i].cPedHealth, "CPed", Draw::hBrushEnemy, Draw::enemyColor);
 			}
 		}
 	}

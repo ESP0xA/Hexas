@@ -2,6 +2,8 @@
 #include "Init.h"
 #include "Player.h"
 #include "Entities.h"
+#include "Mathematics.h"
+#include "Draw.h"
 
 Init init;
 int main()
@@ -19,32 +21,17 @@ int main()
 	
 	// get entities info
 	Entities entities(init);
-	while (1) {
-		entities.GetListInfo();
-		entities.LoopList();
-		Sleep(200);
-	}
-	
-	for (;;) {
-		
-		Sleep(1000);
-	}
-	//entities.Print();
+	entities.GetListInfo();
+	entities.LoopList();
 
-	/*
-	Mathematics math(win);
-
-	Draw draw(win);
-
+	Mathematics math(init);
+	Draw draw(init);
 	ShowWindow(FindWindowA("ConsoleWindowClass", NULL), true);
-	draw.TargetWnd = FindWindow(0, "AssaultCube");
+	draw.TargetWnd = FindWindow(0, init.winName);
 	draw.HDC_Desktop = GetDC(draw.TargetWnd);
 	draw.SetupDrawing(draw.HDC_Desktop, draw.TargetWnd);
-
 	draw.esp(entities, player, math);
-
 	std::cout << "sup";
-	*/
 	return 0;
 }
 

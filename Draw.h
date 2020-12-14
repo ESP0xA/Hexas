@@ -40,7 +40,7 @@ public:
 
 	void DrawString(int x, int y, COLORREF color, const char* text);
 
-	void DrawESP(int x, int y, float distance, int health, char name[20], HBRUSH hBrush, COLORREF Pen);
+	void DrawESP(int x, int y, float distance, int health, const char* name, HBRUSH hBrush, COLORREF Pen);
 
 	DWORD WINAPI esp(Entities entities, Player player, Mathematics math);
 };
