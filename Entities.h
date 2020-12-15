@@ -2,6 +2,7 @@
 #include <vector>
 #include "Init.h"
 #include "Entity.h"
+#include "Player.h"
 
 const int N = 100;
 class Entities {
@@ -20,7 +21,8 @@ public:
 	}
 	
 	void GetListInfo();
-	void GetPlayerListInfo();
+	void GetPlayerListInfo(Player player);
 	void LoopList();
+	//vec3d_f GetSelfInfo(Player player);
 	void Print();
 };

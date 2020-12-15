@@ -22,7 +22,7 @@ int main()
 	// get entities info
 	Entities entities(init);
 	//entities.GetListInfo();
-	entities.GetPlayerListInfo();
+	entities.GetPlayerListInfo(player);
 	entities.LoopList();
 	
 	Mathematics math(init);

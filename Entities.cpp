@@ -40,7 +40,7 @@ void Entities::GetListInfo()
 	amount = list.size();
 }
 
-void Entities::GetPlayerListInfo()
+void Entities::GetPlayerListInfo(Player player)
 {
 	/*
 	* a: temp cped address
@@ -51,7 +51,7 @@ void Entities::GetPlayerListInfo()
 	QWORD a = 0x000000000000;
 	QWORD of_cPed = init.of_player;
 	DWORD offset_of_ents = 0xc0;
-	for (int i = 0; i < 64; i++, of_cPed += offset_of_ents) {
+	for (int i = 0; i < 256; i++, of_cPed += offset_of_ents) {
 		Entity ent;
 		float h = 0;
 		float x, y, z = 0;
@@ -59,13 +59,25 @@ void Entities::GetPlayerListInfo()
 		//if (a) addrList.push_back(a);
 		if (a) { // address not 0
 			ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_health), &h, sizeof(h), nullptr);
-			if (!h) {
+			if (h != h || h < 1 || h > 1000 || h == 150) {
 				continue;// health is 0
 			}
 			else {	 // good cped
+				player.GetInfo();
+				if (player.health - h > -1 && player.health - h < 1) continue;
+
 				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordX), &x, sizeof(x), nullptr);
 				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordY), &y, sizeof(y), nullptr);
 				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordZ), &z, sizeof(z), nullptr);
+				
+				//if (x < -10000 || x > 10000 || y < -10000 || y > 10000 || z < -10000 || z > 10000) {
+				//	continue;
+				//}
+
+				// compare with self coords
+				//if ((player.coords.x == x) && (player.coords.y == y) && (player.coords.z == z)) {
+				//	continue;
+				//}
 				ent.cPedAddreass = a;
 				ent.cPedHealth = h;
 				ent.cPedCoords.x = x, ent.cPedCoords.y = y, ent.cPedCoords.z = z;
@@ -83,6 +95,7 @@ void Entities::LoopList() {
 	}
 	std::cout << "\n\n";
 }
+
 
 void Entities::Print()
 {

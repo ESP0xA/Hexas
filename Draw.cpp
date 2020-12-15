@@ -93,7 +93,7 @@ DWORD WINAPI Draw::esp(Entities entities, Player player, Mathematics math)
 	{
 		player.GetInfo();
 		//entities.GetListInfo();
-		entities.GetPlayerListInfo();
+		entities.GetPlayerListInfo(player);
 		for (int i = 0; i < entities.amount; i++)
 		{
 			if (math.WorldToScreen(entities.list[i].cPedCoords, math.screen, player.matrix, 2560, 1440) && entities.list[i].cPedHealth > 0)
