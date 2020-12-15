@@ -21,10 +21,10 @@ int main()
 	
 	// get entities info
 	Entities entities(init);
-	entities.GetListInfo();
-	//entities.LoopList();
+	//entities.GetListInfo();
+	entities.GetPlayerListInfo();
+	entities.LoopList();
 	
-
 	Mathematics math(init);
 	Draw draw(init);
 	ShowWindow(FindWindowA("ConsoleWindowClass", NULL), true);

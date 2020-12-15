@@ -20,6 +20,7 @@ public:
 	}
 	
 	void GetListInfo();
+	void GetPlayerListInfo();
 	void LoopList();
 	void Print();
 };

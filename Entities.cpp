@@ -4,18 +4,19 @@
 #include "Entities.h"
 #include "Init.h"
 
-
 void Entities::GetListInfo()
 {
 	/*
 	* a: temp cped address
 	* h: temp cped health
 	* x, y, z: temp cped coords
-	 */
+	*/
 	list = {}; // init list
 	QWORD a = 0x000000000000;
 	QWORD of_cPed = init.of_gangCped;
-	for (int i = 0; i < 64; i++, of_cPed += 0x28) {
+	//QWORD of_cPed = init.of_lobbyCped;
+	DWORD offset_of_ents = 0x28;
+	for (int i = 0; i < 64; i++, of_cPed += offset_of_ents) {
 		Entity ent;
 		float h = 0;
 		float x, y, z = 0;
@@ -39,9 +40,46 @@ void Entities::GetListInfo()
 	amount = list.size();
 }
 
+void Entities::GetPlayerListInfo()
+{
+	/*
+	* a: temp cped address
+	* h: temp cped health
+	* x, y, z: temp cped coords
+	 */
+	list = {}; // init list
+	QWORD a = 0x000000000000;
+	QWORD of_cPed = init.of_player;
+	DWORD offset_of_ents = 0xc0;
+	for (int i = 0; i < 64; i++, of_cPed += offset_of_ents) {
+		Entity ent;
+		float h = 0;
+		float x, y, z = 0;
+		ReadProcessMemory(init.procHandle, (LPCVOID)(init.moduleBase + of_cPed), &a, sizeof(a), nullptr);
+		//if (a) addrList.push_back(a);
+		if (a) { // address not 0
+			ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_health), &h, sizeof(h), nullptr);
+			if (!h) {
+				continue;// health is 0
+			}
+			else {	 // good cped
+				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordX), &x, sizeof(x), nullptr);
+				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordY), &y, sizeof(y), nullptr);
+				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordZ), &z, sizeof(z), nullptr);
+				ent.cPedAddreass = a;
+				ent.cPedHealth = h;
+				ent.cPedCoords.x = x, ent.cPedCoords.y = y, ent.cPedCoords.z = z;
+				list.push_back(ent);
+			}
+		}
+	}
+	amount = list.size();
+}
+
 void Entities::LoopList() {
 	for (int i = 0; i < amount; i ++) {
-		std::cout << i << "cPed Health: " << list[i].cPedHealth << "| Coords: {" << list[i].cPedCoords.x << ", " << list[i].cPedCoords.y << ", " << list[i].cPedCoords.z << "}" << "\r";
+		std::cout << i << "cPed Health: " << list[i].cPedHealth << "| Coords: {" << list[i].cPedCoords.x << ", " << list[i].cPedCoords.y << ", " << list[i].cPedCoords.z << "}" << "\n";
+		//std::cout << addrList[i] << " " << std::endl;
 	}
 	std::cout << "\n\n";
 }
