@@ -51,7 +51,7 @@ void Entities::GetPlayerListInfo(Player player)
 	QWORD a = 0x000000000000;
 	QWORD of_cPed = init.of_player;
 	DWORD offset_of_ents = 0xc0;
-	for (int i = 0; i < 256; i++, of_cPed += offset_of_ents) {
+	for (int i = 0; i < 40; i++, of_cPed += offset_of_ents) {
 		Entity ent;
 		float h = 0;
 		float x, y, z = 0;
@@ -59,12 +59,13 @@ void Entities::GetPlayerListInfo(Player player)
 		//if (a) addrList.push_back(a);
 		if (a) { // address not 0
 			ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_health), &h, sizeof(h), nullptr);
-			if (h != h || h < 1 || h > 1000 || h == 150) {
-				continue;// health is 0
+			if (h != h || h < 1 || h > 1000 || h == 150 || h == 175) {
+				continue;
 			}
-			else {	 // good cped
-				player.GetInfo();
-				if (player.health - h > -1 && player.health - h < 1) continue;
+			else {	 // good player
+				// exclude self
+				//player.GetInfo();
+				//if (player.health - h > -1 && player.health - h < 1) continue;
 
 				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordX), &x, sizeof(x), nullptr);
 				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordY), &y, sizeof(y), nullptr);
@@ -74,10 +75,10 @@ void Entities::GetPlayerListInfo(Player player)
 				//	continue;
 				//}
 
-				// compare with self coords
-				//if ((player.coords.x == x) && (player.coords.y == y) && (player.coords.z == z)) {
-				//	continue;
-				//}
+				// exclude self
+				if ((player.coords.x - x > -2 && player.coords.x - x < 2) && (player.coords.y - y > -2 && player.coords.y - y < 2) && (player.coords.z - z > -2 && player.coords.z - z < 2)) {
+					continue;
+				}
 				ent.cPedAddreass = a;
 				ent.cPedHealth = h;
 				ent.cPedCoords.x = x, ent.cPedCoords.y = y, ent.cPedCoords.z = z;

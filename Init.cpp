@@ -45,5 +45,5 @@ void Init::Print()
 	std::cout << "Handle: " << procHandle << std::endl;
 	std::cout << "ModuleBase: " << std::hex << moduleBase << std::endl;
 	std::cout << "playerBaseAddress: " << std::hex << playerBaseAddress << std::endl;
-	std::cout << "pInstGtaBaseAddress: " << std::hex << pInstGtaBaseAddress << std::endl;
+	//std::cout << "pInstGtaBaseAddress: " << std::hex << pInstGtaBaseAddress << std::endl;
 }
