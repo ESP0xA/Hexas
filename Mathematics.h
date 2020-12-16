@@ -11,9 +11,9 @@ private:
 
 public:
 
-	vec3d_f screen;
-	vec4d_f clipCoords;
-	vec4d_f NDC;
+	vec3d_f screen = {};
+	vec4d_f clipCoords = {};
+	vec4d_f NDC = {};
 
 	Mathematics(Init this_init)
 	{
@@ -26,7 +26,4 @@ public:
 	float GetDistance2D(vec3d_f m_pos, vec3d_f en_pos);
 
 	vec3d_f CalculateAngles(vec3d_f m_pos, vec3d_f en_pos);
-
-	void GetInfo();
-	void Print();
 };

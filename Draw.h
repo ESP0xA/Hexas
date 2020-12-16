@@ -1,7 +1,7 @@
 #pragma once
 #include "Structs.h"
 #include "Entities.h"
-#include "Player.h"
+#include "Self.h"
 #include "Mathematics.h"
 #include "Init.h"
 
@@ -44,5 +44,5 @@ public:
 
 	void DrawESP(int x, int y, float distance, int health, const char* name, HBRUSH hBrush, COLORREF Pen);
 
-	DWORD WINAPI esp(Entities entities, Player player, Mathematics math);
+	DWORD WINAPI esp(Entities entities, Self self, Mathematics math);
 };

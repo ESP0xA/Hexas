@@ -145,7 +145,7 @@
     <ClCompile Include="Init.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mathematics.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Self.cpp" />
     <ClCompile Include="Teleport.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,7 +154,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Init.h" />
     <ClInclude Include="Mathematics.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Self.h" />
     <ClInclude Include="Structs.h" />
     <ClInclude Include="Teleport.h" />
   </ItemGroup>

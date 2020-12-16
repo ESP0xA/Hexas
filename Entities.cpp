@@ -13,24 +13,24 @@ void Entities::GetListInfo()
 	*/
 	list = {}; // init list
 	QWORD a = 0x000000000000;
-	QWORD of_cPed = init.of_gangCped;
+	QWORD off_cPed = init.off_gangCpedList;
 	//QWORD of_cPed = init.of_lobbyCped;
-	DWORD offset_of_ents = 0x28;
-	for (int i = 0; i < 64; i++, of_cPed += offset_of_ents) {
+	DWORD offsetOfEachCPed = 0x28;
+	for (int i = 0; i < 64; i++, off_cPed += offsetOfEachCPed) {
 		Entity ent;
 		float h = 0;
 		float x, y, z = 0;
-		ReadProcessMemory(init.procHandle, (LPCVOID)(init.moduleBase + of_cPed), &a, sizeof(a), nullptr);
+		ReadProcessMemory(init.procHandle, (LPCVOID)(init.moduleBase + off_cPed), &a, sizeof(a), nullptr);
 		if (a) { // address not 0
-			ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_health), &h, sizeof(h), nullptr);
+			ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_health), &h, sizeof(h), nullptr);
 			if (!h) {
 				continue;// health is 0
 			}
 			else {	 // good cped
-				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordX), &x, sizeof(x), nullptr);
-				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordY), &y, sizeof(y), nullptr);
-				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordZ), &z, sizeof(z), nullptr);
-				ent.cPedAddreass = a;
+				ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_coordX), &x, sizeof(x), nullptr);
+				ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_coordY), &y, sizeof(y), nullptr);
+				ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_coordZ), &z, sizeof(z), nullptr);
+				ent.cPedAddr = a;
 				ent.cPedHealth = h;
 				ent.cPedCoords.x = x, ent.cPedCoords.y = y, ent.cPedCoords.z = z;
 				list.push_back(ent);
@@ -40,7 +40,7 @@ void Entities::GetListInfo()
 	amount = list.size();
 }
 
-void Entities::GetPlayerListInfo(Player player)
+void Entities::GetPlayerListInfo(Self self)
 {
 	/*
 	* a: temp cped address
@@ -49,16 +49,16 @@ void Entities::GetPlayerListInfo(Player player)
 	 */
 	list = {}; // init list
 	QWORD a = 0x000000000000;
-	QWORD of_cPed = init.of_player;
-	DWORD offset_of_ents = 0xc0;
-	for (int i = 0; i < 40; i++, of_cPed += offset_of_ents) {
+	QWORD offCPed = init.off_globalPlayerList;
+	DWORD offsetOfEachCPed = 0xc0;
+	for (int i = 0; i < 40; i++, offCPed += offsetOfEachCPed) {
 		Entity ent;
 		float h = 0;
 		float x, y, z = 0;
-		ReadProcessMemory(init.procHandle, (LPCVOID)(init.moduleBase + of_cPed), &a, sizeof(a), nullptr);
+		ReadProcessMemory(init.procHandle, (LPCVOID)(init.moduleBase + offCPed), &a, sizeof(a), nullptr);
 		//if (a) addrList.push_back(a);
 		if (a) { // address not 0
-			ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_health), &h, sizeof(h), nullptr);
+			ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_health), &h, sizeof(h), nullptr);
 			if (h != h || h < 1 || h > 1000 || h == 150 || h == 175) {
 				continue;
 			}
@@ -67,19 +67,19 @@ void Entities::GetPlayerListInfo(Player player)
 				//player.GetInfo();
 				//if (player.health - h > -1 && player.health - h < 1) continue;
 
-				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordX), &x, sizeof(x), nullptr);
-				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordY), &y, sizeof(y), nullptr);
-				ReadProcessMemory(init.procHandle, LPCVOID(a + init.of_coordZ), &z, sizeof(z), nullptr);
+				ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_coordX), &x, sizeof(x), nullptr);
+				ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_coordY), &y, sizeof(y), nullptr);
+				ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_coordZ), &z, sizeof(z), nullptr);
 				
 				//if (x < -10000 || x > 10000 || y < -10000 || y > 10000 || z < -10000 || z > 10000) {
 				//	continue;
 				//}
 
 				// exclude self
-				if ((player.coords.x - x > -2 && player.coords.x - x < 2) && (player.coords.y - y > -2 && player.coords.y - y < 2) && (player.coords.z - z > -2 && player.coords.z - z < 2)) {
+				if ((self.coords.x - x > -2 && self.coords.x - x < 2) && (self.coords.y - y > -2 && self.coords.y - y < 2) && (self.coords.z - z > -2 && self.coords.z - z < 2)) {
 					continue;
 				}
-				ent.cPedAddreass = a;
+				ent.cPedAddr = a;
 				ent.cPedHealth = h;
 				ent.cPedCoords.x = x, ent.cPedCoords.y = y, ent.cPedCoords.z = z;
 				list.push_back(ent);

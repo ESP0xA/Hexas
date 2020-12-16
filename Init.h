@@ -16,33 +16,28 @@ public:
 	QWORD moduleBase = 0x7FF6BF000000;	// "GTA5.exe"
 	QWORD moduleSize = 0;
 
-	// BaseAddress
-	QWORD playerBaseAddress = 0x0;
-	QWORD pInstGtaBaseAddress = 0x0;
-	QWORD gangCpedEntityListBaseAddress = 0x0;
+
 
 	// Offset of Player and cPed
-	QWORD of_playerBaseAddress = 0x1C923C8;				// off gta5.exe	
-	QWORD of_health = 0x280;							// off player
-	QWORD of_name = { 0x225 };							// ?
-	QWORD of_coordX = { 0x90 };							// off player
-	QWORD of_coordY = { 0x94 };							// off player
-	QWORD of_coordZ = { 0x98 };							// off player
-	QWORD of_OperetableCoordX = { 0x50 };				// off pInstGtaBaseAddress
-	QWORD of_OperetableCoordY = { 0x54 };				// off pInstGtaBaseAddress
-	QWORD of_OperetableCoordZ = { 0x58 };				// off pInstGtaBaseAddress
-	QWORD of_gangCped = 0x24F3408;						// off gta.exe
-	QWORD of_lobbyCped = 0x2629768;
-	QWORD of_player = 0x24EB520;						// lobby player
-	QWORD of_viewmatrix = 0x1F8B140;					//
+	QWORD off_localPlayer = 0x1C923C8;				    // off gta5.exe	
+	QWORD off_gangCpedList = 0x24F3408;					// off gta.exe
+	QWORD off_lobbyCpedList = 0x2629768;				// outdate
+	QWORD off_globalPlayerList = 0x24EB520;				// players
+	QWORD off_viewmatrix = 0x1F8B140;					//
+	QWORD off_health = 0x280;							// off entity
+	QWORD off_coordX = { 0x90 };						// off entity
+	QWORD off_coordY = { 0x94 };						// off entity
+	QWORD off_coordZ = { 0x98 };						// off entity
+	QWORD off_operetableCoordX = { 0x50 };				// off pInstGtaAddy
+	QWORD off_operetableCoordY = { 0x54 };				// off pInstGtaAddy
+	QWORD off_operetableCoordZ = { 0x58 };				// off pInstGtaAddy
+
 
 	void GetPID();
 
 	void GetProcHandle();
 
 	void GetModuleInfo();
-
-	void GenerateBaseAddress();
 
 	void Print();
 

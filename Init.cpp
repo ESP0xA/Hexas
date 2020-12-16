@@ -28,12 +28,6 @@ void Init::GetModuleInfo()
 	moduleSize = (DWORD)modInfo.SizeOfImage;
 }
 
-void Init::GenerateBaseAddress()
-{
-	ReadProcessMemory(procHandle, (LPCVOID)(moduleBase + of_playerBaseAddress), &playerBaseAddress, sizeof(playerBaseAddress), nullptr);
-	ReadProcessMemory(procHandle, (LPCVOID)(playerBaseAddress + 0x30), &pInstGtaBaseAddress, sizeof(pInstGtaBaseAddress), nullptr);
-	//ReadProcessMemory(procHandle, (LPCVOID)(moduleBase + of_gangCped), &gangCpedEntityListBaseAddress, sizeof(playerBaseAddress), nullptr);
-}
 
 void Init::Print()
 {
@@ -44,6 +38,4 @@ void Init::Print()
 	std::cout << "PID: " << PID << std::endl;;
 	std::cout << "Handle: " << procHandle << std::endl;
 	std::cout << "ModuleBase: " << std::hex << moduleBase << std::endl;
-	std::cout << "playerBaseAddress: " << std::hex << playerBaseAddress << std::endl;
-	//std::cout << "pInstGtaBaseAddress: " << std::hex << pInstGtaBaseAddress << std::endl;
 }
