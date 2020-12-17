@@ -9,11 +9,15 @@ class Init
 
 public:
 	LPCSTR winName = "Grand Theft Auto V";
+	LPCSTR winTest = "new 1 - Notepad++";
 	const char* procName = "GTA5.exe";
+
+	int width = 2560;
+	int height = 1440;
 	// About game system
 	DWORD PID = 0;
 	HANDLE procHandle = 0;
-	QWORD moduleBase = 0x7FF6BF000000;	// "GTA5.exe"
+	QWORD moduleBase = 0x7FF7EC480000;	// "GTA5.exe"
 	QWORD moduleSize = 0;
 
 
@@ -21,7 +25,8 @@ public:
 	// Offset of Player and cPed
 	QWORD off_localPlayer = 0x1C923C8;				    // off gta5.exe	
 	QWORD off_gangCpedList = 0x24F3408;					// off gta.exe
-	QWORD off_lobbyCpedList = 0x2629768;				// outdate
+	QWORD off_bogdanSubCpedList = 0x1FA5320;			// off gta.exe
+	QWORD off_heistCpedList = 0x24F3408;				// off gta.exe
 	QWORD off_globalPlayerList = 0x24EB520;				// players
 	QWORD off_viewmatrix = 0x1F8B140;					//
 	QWORD off_health = 0x280;							// off entity

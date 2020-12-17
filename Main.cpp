@@ -16,22 +16,24 @@ int main()
 	// get self info
 	Self self(init);
 	self.GetBasicInfo();
+	self.GetDynamicInfo();
 	self.Print();
 	
 	// get entities info
 	Entities entities(init);
-	//entities.GetListInfo();
-	entities.GetPlayerListInfo(self);
+	entities.GetHeistListInfo(self);
+	//entities.GetPlayerListInfo(self);
 	entities.LoopList();
 	
 	Mathematics math(init);
 	Draw draw(init);
 	ShowWindow(FindWindowA("ConsoleWindowClass", NULL), true);
 	draw.TargetWnd = FindWindow(0, init.winName);
+	//draw.TargetWnd = FindWindow(0, init.winTest);
 	draw.HDC_Desktop = GetDC(draw.TargetWnd);
 	draw.SetupDrawing(draw.HDC_Desktop, draw.TargetWnd);
 	draw.esp(entities, self, math);
-	std::cout << "sup";
+	std::cout << "Exited";
 	return 0;
 }
 

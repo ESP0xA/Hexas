@@ -88,18 +88,19 @@ void Draw::DrawESP(int x, int y, float distance, int health, const char* name, H
 DWORD WINAPI Draw::esp(Entities entities, Self self, Mathematics math)
 {
 	GetWindowRect(FindWindow(NULL, init.winName), &m_Rect);
-
+	//GetWindowRect(FindWindow(NULL, init.winTest), &m_Rect);
 	while (true)
 	{
 		self.GetDynamicInfo();
-		//entities.GetListInfo();
-		entities.GetPlayerListInfo(self);
+		entities.GetHeistListInfo(self);
+		//entities.GetPlayerListInfo(self);
+		std::cout << std::dec<< entities.amount << std::endl;
 		for (int i = 0; i < entities.amount; i++)
 		{
-			if (math.WorldToScreen(entities.list[i].cPedCoords, math.screen, self.matrix, 2560, 1440) && entities.list[i].cPedHealth > 0)
+			if (math.WorldToScreen(entities.list[i].cPedCoords, math.screen, self.matrix, init.width, init.height) && entities.list[i].cPedHealth > 0)
 			{
 				Draw::DrawESP(math.screen.x, math.screen.y, math.GetDistance3D(self.coords, entities.list[i].cPedCoords), entities.list[i].cPedHealth, "CPed", Draw::hBrushEnemy, Draw::enemyColor);
-				Draw::DrawLine(2560 / 2, 1440, math.screen.x, math.screen.y, Draw::enemyColor);
+				Draw::DrawLine(init.width / 2, init.height, math.screen.x, math.screen.y, Draw::enemyColor);
 			}
 		}
 	}

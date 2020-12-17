@@ -4,7 +4,48 @@
 #include "Entities.h"
 #include "Init.h"
 
-void Entities::GetListInfo()
+
+void Entities::GetHeistListInfo(Self self)
+{
+	/*
+	* a: temp cped address
+	* h: temp cped health
+	* x, y, z: temp cped coords
+	*/
+	list = {}; // init list
+	QWORD a = 0x000000000000;
+	QWORD off_cPed = init.off_heistCpedList;
+	DWORD offsetOfEachCPed = 0x28;  //0x10(bogdan)
+	for (int i = 0; i < 175; i++, off_cPed += offsetOfEachCPed) {
+		Entity ent;
+		float h = 0;
+		float x, y, z = 0;
+		ReadProcessMemory(init.procHandle, (LPCVOID)(init.moduleBase + off_cPed), &a, sizeof(a), nullptr);
+		if (a) { // address not 0
+			ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_health), &h, sizeof(h), nullptr);
+			if (h != h || !h) {
+				continue;// health 
+			}
+			else {	 // good cped
+				ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_coordX), &x, sizeof(x), nullptr);
+				ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_coordY), &y, sizeof(y), nullptr);
+				ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_coordZ), &z, sizeof(z), nullptr);
+				// exlude self
+				self.GetDynamicInfo();
+				if ((self.coords.x - x > -0.005 && self.coords.x - x < 0.005) && (self.coords.y - y > -0.005 && self.coords.y - y < 0.005) && (self.coords.z - z > -0.005 && self.coords.z - z < 0.005)) {
+					continue;
+				}
+				ent.cPedAddr = a;
+				ent.cPedHealth = h;
+				ent.cPedCoords.x = x, ent.cPedCoords.y = y, ent.cPedCoords.z = z;
+				list.push_back(ent);
+			}
+		}
+	}
+	amount = list.size();
+}
+
+void Entities::GetGangListInfo()
 {
 	/*
 	* a: temp cped address
@@ -14,7 +55,6 @@ void Entities::GetListInfo()
 	list = {}; // init list
 	QWORD a = 0x000000000000;
 	QWORD off_cPed = init.off_gangCpedList;
-	//QWORD of_cPed = init.of_lobbyCped;
 	DWORD offsetOfEachCPed = 0x28;
 	for (int i = 0; i < 64; i++, off_cPed += offsetOfEachCPed) {
 		Entity ent;
@@ -23,8 +63,8 @@ void Entities::GetListInfo()
 		ReadProcessMemory(init.procHandle, (LPCVOID)(init.moduleBase + off_cPed), &a, sizeof(a), nullptr);
 		if (a) { // address not 0
 			ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_health), &h, sizeof(h), nullptr);
-			if (!h) {
-				continue;// health is 0
+			if (h != h || h < 1 || h > 1000) {
+				continue;// health 
 			}
 			else {	 // good cped
 				ReadProcessMemory(init.procHandle, LPCVOID(a + init.off_coordX), &x, sizeof(x), nullptr);
@@ -51,7 +91,7 @@ void Entities::GetPlayerListInfo(Self self)
 	QWORD a = 0x000000000000;
 	QWORD offCPed = init.off_globalPlayerList;
 	DWORD offsetOfEachCPed = 0xc0;
-	for (int i = 0; i < 40; i++, offCPed += offsetOfEachCPed) {
+	for (int i = 0; i < 64; i++, offCPed += offsetOfEachCPed) {
 		Entity ent;
 		float h = 0;
 		float x, y, z = 0;
@@ -76,6 +116,7 @@ void Entities::GetPlayerListInfo(Self self)
 				//}
 
 				// exclude self
+				self.GetDynamicInfo();
 				if ((self.coords.x - x > -2 && self.coords.x - x < 2) && (self.coords.y - y > -2 && self.coords.y - y < 2) && (self.coords.z - z > -2 && self.coords.z - z < 2)) {
 					continue;
 				}

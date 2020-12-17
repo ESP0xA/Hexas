@@ -20,7 +20,8 @@ public:
 		//GetEntityAmount(); // Need to init with knowing how many entities there are.
 	}
 	
-	void GetListInfo();
+	void GetHeistListInfo(Self self);
+	void GetGangListInfo();
 	void GetPlayerListInfo(Self self);
 	void LoopList();
 	void Print();
